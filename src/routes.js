@@ -24,7 +24,7 @@ export default createAppContainer(
                     backgroundColor: '#295b92',
                     elevation:0
                 },
-                headerBackImage: (<Icon name='angle-left' size={wp('10%')} color='white'/>),
+                headerBackImage: () => (<Icon name='angle-left' size={wp('10%')} color='white'/>),
                 headerTitleContainerStyle:{
                     justifyContent:'center'
                   },

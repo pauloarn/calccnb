@@ -4,6 +4,7 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
   } from 'react-native-responsive-screen';   
+
 export default StyleSheet.create({
     main:{
         flex:1,
@@ -18,11 +19,14 @@ export default StyleSheet.create({
         paddingBottom: wp('5%')    
     },
     logo:{
-        marginTop: wp('5%'),
-        width: wp('25%'),
-        height:wp('25%'),
+        //marginTop: wp('2%'),
+        width: wp('60%'),
+        height:wp('30%'),
         backgroundColor:'#295b92',
-        marginBottom:wp('2%')
+        //marginBottom:wp('1%')
+    },
+    divider:{
+        height:wp('5%')
     },
     text:{
         fontSize: wp('6%'),
@@ -55,24 +59,37 @@ export default StyleSheet.create({
         marginBottom:-wp('3%'),
         textAlign:'center'
     },
-    cardGame:{
-        width: wp('80%'),
-        backgroundColor:'white',
-        marginBottom:wp('2%'),
-        alignItems:'center',
-        height:hp('10%'),
-        elevation:wp('1%'),
-        borderRadius:wp('2%')
-    },
-    cardText:{
-        fontSize: wp('5%'),
-        marginTop:wp('1%')
-    },
     checkContainer:{
         backgroundColor:'rgba(0,0,0,0)',
         borderColor: 'rgba(0,0,0,0)'
     },
     textChek:{
         color:'white'
+    },
+    cardGame:{
+        width: wp('80%'),
+        backgroundColor:'white',
+        marginBottom:wp('3%'),
+        justifyContent:'center',
+        alignItems:'center',
+        height:hp('8%'),
+        elevation:wp('1%'),
+        borderRadius:wp('2%'),
+        flexDirection:'row'
+    },
+    cardText:{
+        fontSize: wp('5%'),
+        marginTop:wp('1%'),
+        alignSelf:'center',
+        marginHorizontal: wp('3%'),
+        flex:1
+    },
+    winInd:{
+        width:wp('10%'),
+        height:wp('15%'),
+        marginRight:wp('10%'),
+        borderTopLeftRadius:wp('2%'),
+        borderBottomLeftRadius:wp('2%'),
+        flex:0.3
     }
  })

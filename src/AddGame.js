@@ -7,36 +7,28 @@ import  {Button, CheckBox } from 'react-native-elements'
 import getRealm from './Services/realm'
 import {Formik} from 'formik'
 import * as yup from 'yup';
+import uuid from 'react-native-uuid'
 
 export default function AddGame (props) {    
-
-    const [champion, setChampion] = useState('');
-    const [abates, setAbates] = useState('');
-    const [mortes, setMortes] = useState('');
-    const [assistencias, setAssistencias] = useState('');
-    const [gameTime, setGameTime] = useState('');
-    const [tower, setTower] = useState('');
-    const [farm, setFarm] = useState('');
-    const [damageChamp, setDamageChamp] = useState('');
-    const [damageGoals, setDamageGoals] = useState('');
-    const [cc, setCC] = useState('');
-    const [result, setResult] = useState(true);
     
-    async function AddGame(){
+    const [result, setResult] = useState(true);
+
+    async function AddGame(values){
         let timeAux = 0;
         let total = 0 ;
         let winAux = 0;
-        if (gameTime > 70){
+
+        if (values.gameTimef >= 70){
             timeAux = (-100)
-        } else if(gameTime > 60){
+        } else if(values.gameTimef >= 60){
             timeAux = (-80)
-        } else if (gameTime > 50){
+        } else if (values.gameTimef >= 50){
             timeAux = (-60)
-        } else if (gameTime>40){
+        } else if (values.gameTimef>=40){
             timeAux = (-40)
-        } else if(gameTime > 30){
+        } else if(values.gameTimef >= 30){
             timeAux = (20)
-        } else if (gameTime <20 ){
+        } else if (values.gameTimef < 20 ){
             timeAux = (35)
         }
 
@@ -45,22 +37,31 @@ export default function AddGame (props) {
         } else if(result == false){
             winAux = 0
         }
-        total = ((abates * 6)+ (mortes *(-5)) + (assistencias * 4) + (timeAux) + (tower * 2) + (farm * 0.15) + (damageChamp * 0.0007) + (damageGoals * 0.0002) + (cc * 0.4)+ winAux)
+        total += (values.abatesf * 6) 
+        total += (values.mortesf *(-5))
+        total += (values.assists * 4)
+        total += (timeAux)
+        total += (values.towers * 2)
+        total += (values.farmf * 0.15)
+        total += (values.champDamage * 0.0007)
+        total += (values.goalsDamage * 0.0002)
+        total += (values.ccf * 0.4)
+        total += (winAux)
 
-        console.log(total)
-        console.log(champion)
+        console.log(values.champ)
 
         const game = {
-            champion: champion,
-            kiils: (abates * 6),
-            deaths: (mortes * (-5)),
-            assists: (assistencias * 4),
+            id : uuid.v4(),
+            champion: values.champ,
+            kiils: (values.abatesf * 6),
+            deaths: (values.mortesf * (-5)),
+            assists: (values.assists * 4),
             time: timeAux,
-            towers: (tower * 2),
-            Farm:  (farm * 0.15),
-            damageChamp: (damageChamp * 0.0007),
-            damageGoals: (damageGoals * 0.0002),
-            cc: (cc * 0.4),
+            towers: (values.towers * 2),
+            Farm:  (values.farmf * 0.15),
+            damageChamp: (values.champDamage * 0.0007),
+            damageGoals: (values.goalsDamage * 0.0002),
+            cc: (values.ccf * 0.4),
             win: winAux,
             total: total
         };
@@ -75,17 +76,16 @@ export default function AddGame (props) {
             alert('NÃO ADICIONOU')
             alert(e)
         }
-
     };
   return (  
       <>      
         <View style ={{backgroundColor:'#295b92', alignItems:'center'}}>
-            <Image source = {{uri:'https://upload.wikimedia.org/wikipedia/pt/thumb/d/dd/CNB_e-Sports.png/200px-CNB_e-Sports.png'}} 
+            <Image source = {{uri:'https://jogue.br.leagueoflegends.com/3fb69d63a4fc35119d5898b4503ffce2.png'}} 
                 style = {styles.logo}/>
         </View>
         <ScrollView style = {styles.scroll}>
                 <Formik
-                    initialValues = {{champ: '', abatesf: '', mortesf: '', assists: '', gameTimef: '', towers:'', farmf:'', champDamage:'', goalsDamage:'', ccf:'', }}
+                    initialValues = {{champ: '', abatesf: '', mortesf: '', assists: '', gameTimef: '', towers:'', farmf:'', champDamage:'', goalsDamage:'', ccf:''}}
                     validationSchema = {
                         yup.object().shape({
                             champ: yup.string().required('Informe o Champ utilizado da partida'),
@@ -101,18 +101,8 @@ export default function AddGame (props) {
                         })
                     }
                     onSubmit={(values) => {
-                        setChampion(values.champ)                        
-                        setAbates(values.abatesf)
-                        setMortes(values.mortesf)
-                        setAssistencias(values.assists)
-                        setGameTime(values.gameTimef)
-                        setTower(values.towers)
-                        setFarm(values.farmf)
-                        setDamageChamp(values.champDamage)
-                        setDamageGoals(values.goalsDamage)
-                        setCC(values.ccf)
                         console.log(values)
-                        AddGame()
+                        AddGame(values)
                     }}
                 >
                     {({values, handleChange, errors,handleSubmit})=>(                        
@@ -187,8 +177,8 @@ export default function AddGame (props) {
                                 />
                                  <CheckBox
                                     title = 'Derrota'    
-                                    checked = {!result}                                       
-                                    onPress = {()=>setResult(!result)}     
+                                    checked = {!result}
+                                    onPress = {()=>setResult(!result)}
                                     containerStyle = {styles.checkContainer}    
                                     textStyle = {styles.textChek}                    
                                 />

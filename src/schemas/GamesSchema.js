@@ -1,10 +1,10 @@
-import uuid from 'react-native-uuid'
+
 export default class GamesSchema{
     static schema = {
         name: 'Games',
         primaryKey: 'id',
         properties:{
-            id: {type: 'string', indexed: true, default: uuid.v4()},
+            id: {type: 'string', indexed: true},
             champion: 'string',
             kiils: 'int',
             deaths: 'int',
