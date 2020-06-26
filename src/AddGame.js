@@ -1,14 +1,15 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { View, Text, Image } from 'react-native';
 import styles from './styles'
 import { ScrollView } from 'react-native-gesture-handler';
 import InputComponent from './Components/Input'
-import  {Button } from 'react-native-elements'
+import  {Button, CheckBox } from 'react-native-elements'
 import getRealm from './Services/realm'
 import {Formik} from 'formik'
 import * as yup from 'yup';
 
 export default function AddGame (props) {    
+
     const [champion, setChampion] = useState('');
     const [abates, setAbates] = useState('');
     const [mortes, setMortes] = useState('');
@@ -19,10 +20,12 @@ export default function AddGame (props) {
     const [damageChamp, setDamageChamp] = useState('');
     const [damageGoals, setDamageGoals] = useState('');
     const [cc, setCC] = useState('');
+    const [result, setResult] = useState(true);
     
     async function AddGame(){
         let timeAux = 0;
         let total = 0 ;
+        let winAux = 0;
         if (gameTime > 70){
             timeAux = (-100)
         } else if(gameTime > 60){
@@ -36,10 +39,17 @@ export default function AddGame (props) {
         } else if (gameTime <20 ){
             timeAux = (35)
         }
-        total = ((abates * 6)+ (mortes *(-5)) + (assistencias * 4) + (timeAux) + (tower * 2) + (farm * 0.15) + (damageChamp * 0.0007) + (damageGoals * 0.0002) + (cc * 0.4))
+
+        if (result == true){
+            winAux = 50
+        } else if(result == false){
+            winAux = 0
+        }
+        total = ((abates * 6)+ (mortes *(-5)) + (assistencias * 4) + (timeAux) + (tower * 2) + (farm * 0.15) + (damageChamp * 0.0007) + (damageGoals * 0.0002) + (cc * 0.4)+ winAux)
 
         console.log(total)
         console.log(champion)
+
         const game = {
             champion: champion,
             kiils: (abates * 6),
@@ -51,13 +61,14 @@ export default function AddGame (props) {
             damageChamp: (damageChamp * 0.0007),
             damageGoals: (damageGoals * 0.0002),
             cc: (cc * 0.4),
+            win: winAux,
             total: total
         };
-
+        console.log(game);
         const realm = await getRealm();
         try {
             realm.write(()=>{
-                realm.create('Games', game, 'modified')
+                realm.create('Games', game)
             });
             props.navigation.navigate('main')
         }catch (e){
@@ -90,22 +101,22 @@ export default function AddGame (props) {
                         })
                     }
                     onSubmit={(values) => {
-                        setChampion(values.champ),
-                        setAbates(values.abatesf),
-                        setMortes(values.mortesf),
-                        setAssistencias(values.assists),
-                        setGameTime(values.gameTimef),
-                        setTower(values.towers),
-                        setFarm(values.farm),
-                        setDamageChamp(values.champDamage),
-                        setDamageGoals(values.goalsDamage),
-                        setCC(values.cc)
+                        setChampion(values.champ)                        
+                        setAbates(values.abatesf)
+                        setMortes(values.mortesf)
+                        setAssistencias(values.assists)
+                        setGameTime(values.gameTimef)
+                        setTower(values.towers)
+                        setFarm(values.farmf)
+                        setDamageChamp(values.champDamage)
+                        setDamageGoals(values.goalsDamage)
+                        setCC(values.ccf)
                         console.log(values)
+                        AddGame()
                     }}
                 >
                     {({values, handleChange, errors,handleSubmit})=>(                        
                         <View style={styles.insideScroll}>
-                            {console.log(errors)}
                             <InputComponent
                                 field = "Campeão do Jogo"
                                 onChangeText = {handleChange('champ')}
@@ -165,7 +176,23 @@ export default function AddGame (props) {
                                 onChangeText = {handleChange('ccf')}
                                 keyboard = 'numeric'
                                 error = {errors.ccf && errors.ccf}
-                            />            
+                            />        
+                            <View style = {{flexDirection:"row"}}>
+                                <CheckBox
+                                    title = 'Vitória'
+                                    checked = {result}
+                                    onPress = {()=>setResult(!result)}
+                                    containerStyle = {styles.checkContainer}
+                                    textStyle = {styles.textChek}
+                                />
+                                 <CheckBox
+                                    title = 'Derrota'    
+                                    checked = {!result}                                       
+                                    onPress = {()=>setResult(!result)}     
+                                    containerStyle = {styles.checkContainer}    
+                                    textStyle = {styles.textChek}                    
+                                />
+                            </View>    
                             <Button
                                 title = 'Adicionar Jogo'
                                 onPress= {handleSubmit}

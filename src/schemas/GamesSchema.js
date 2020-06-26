@@ -4,7 +4,7 @@ export default class GamesSchema{
         name: 'Games',
         primaryKey: 'id',
         properties:{
-            id: {type: 'string', indexed: true, default: uuid.v1()},
+            id: {type: 'string', indexed: true, default: uuid.v4()},
             champion: 'string',
             kiils: 'int',
             deaths: 'int',
@@ -15,6 +15,7 @@ export default class GamesSchema{
             damageChamp: 'double',
             damageGoals: 'double',
             cc: 'double',
+            win: 'int',
             total: 'double'
         },
     };

@@ -54,5 +54,25 @@ export default StyleSheet.create({
         color:'white',
         marginBottom:-wp('3%'),
         textAlign:'center'
+    },
+    cardGame:{
+        width: wp('80%'),
+        backgroundColor:'white',
+        marginBottom:wp('2%'),
+        alignItems:'center',
+        height:hp('10%'),
+        elevation:wp('1%'),
+        borderRadius:wp('2%')
+    },
+    cardText:{
+        fontSize: wp('5%'),
+        marginTop:wp('1%')
+    },
+    checkContainer:{
+        backgroundColor:'rgba(0,0,0,0)',
+        borderColor: 'rgba(0,0,0,0)'
+    },
+    textChek:{
+        color:'white'
     }
  })
