@@ -1,16 +1,17 @@
 import React, {Component} from 'react'
 import {createAppContainer} from 'react-navigation'
 import {createStackNavigator} from 'react-navigation-stack'
-import Main from './Main'
 import AddGame from './AddGame'
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
   } from 'react-native-responsive-screen';   
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import Roles from './rolesRoute'
+
 export default createAppContainer(
     createStackNavigator({
-        main:{ screen: Main,
+        main:{ screen: Roles,
             navigationOptions:{
                 headerVisible:false,
                 headerShown: false

@@ -14,14 +14,53 @@ export default function Main (props) {
     let listener ='';
     useEffect(()=>{
       listener = props.navigation.addListener('willFocus', ()=>{
-        async function loadGames(){
-          const realm = await getRealm();
-          const data = realm.objects('Games');
-          const average = realm.objects('Games').avg('total')
-          setGames(data);
-          setTotal(average.toFixed(2));
+        if(props.navigation.state.routeName === "top"){
+          async function loadGames(){
+            const realm = await getRealm();
+            const data = realm.objects('TOP');
+            const average = realm.objects('TOP').avg('total')
+            setGames(data);
+            //setTotal(average.toFixed(2));
+          }
+          loadGames();
+        } else if(props.navigation.state.routeName === "jg"){
+          async function loadGames(){
+            const realm = await getRealm();
+            const data = realm.objects('JG');
+            const average = realm.objects('JG').avg('total')
+            setGames(data);
+            //setTotal(average.toFixed(2));
+          }
+          loadGames();
+        }else if(props.navigation.state.routeName === "mid"){
+          async function loadGames(){
+            const realm = await getRealm();
+            const data = realm.objects('MID');
+            const average = realm.objects('MID').avg('total')
+            setGames(data);
+            //setTotal(average.toFixed(2));
+          }
+          loadGames();
         }
-        loadGames();
+        else if(props.navigation.state.routeName === "adc"){
+          async function loadGames(){
+            const realm = await getRealm();
+            const data = realm.objects('ADC');
+            const average = realm.objects('ADC').avg('total')
+            setGames(data);
+            setTotal(average.toFixed(2));
+          }
+          loadGames();
+        } else if(props.navigation.state.routeName === "supp"){
+          async function loadGames(){
+            const realm = await getRealm();
+            const data = realm.objects('SUP');
+            const average = realm.objects('SUP').avg('total')
+            setGames(data);
+            setTotal(average.toFixed(2));
+          }
+          loadGames();
+        }
       })
     },[])
     useEffect (()=> () => {
@@ -47,9 +86,6 @@ export default function Main (props) {
                                     </View> 
             }
         />
-        <TouchableOpacity style ={styles.btnIco} onPress = {()=>props.navigation.navigate('add')}>
-            <Icon name='add-circle' style = {styles.icon}/>
-        </TouchableOpacity>
       </View>
     );
 }

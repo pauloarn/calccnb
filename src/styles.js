@@ -20,7 +20,7 @@ export default StyleSheet.create({
     },
     logo:{
         //marginTop: wp('2%'),
-        width: wp('60%'),
+        width: wp('66%'),
         height:wp('30%'),
         backgroundColor:'#295b92',
         //marginBottom:wp('1%')

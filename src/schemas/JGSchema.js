@@ -1,7 +1,7 @@
 
-export default class GamesSchema{
+export default class jgSchema{
     static schema = {
-        name: 'Games',
+        name: 'JG',
         primaryKey: 'id',
         properties:{
             id: {type: 'string', indexed: true},
@@ -10,10 +10,9 @@ export default class GamesSchema{
             deaths: 'int',
             assists: 'int',
             time: 'int',
-            towers: 'int',
-            Farm: 'double',
-            damageChamp: 'double',
-            damageGoals: 'double',
+            drags: 'int',
+            arautos: 'double',
+            barons: 'double',
             cc: 'double',
             win: 'int',
             total: 'double'
