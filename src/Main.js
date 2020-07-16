@@ -20,7 +20,7 @@ export default function Main (props) {
             const data = realm.objects('TOP');
             const average = realm.objects('TOP').avg('total')
             setGames(data);
-            //setTotal(average.toFixed(2));
+            setTotal(average.toFixed(2));
           }
           loadGames();
         } else if(props.navigation.state.routeName === "jg"){
@@ -29,7 +29,7 @@ export default function Main (props) {
             const data = realm.objects('JG');
             const average = realm.objects('JG').avg('total')
             setGames(data);
-            //setTotal(average.toFixed(2));
+            setTotal(average.toFixed(2));
           }
           loadGames();
         }else if(props.navigation.state.routeName === "mid"){
@@ -38,7 +38,7 @@ export default function Main (props) {
             const data = realm.objects('MID');
             const average = realm.objects('MID').avg('total')
             setGames(data);
-            //setTotal(average.toFixed(2));
+            setTotal(average.toFixed(2));
           }
           loadGames();
         }
@@ -69,8 +69,6 @@ export default function Main (props) {
 
     return (
       <View style = {styles.main}>
-        <Image source = {{uri:'https://jogue.br.leagueoflegends.com/3fb69d63a4fc35119d5898b4503ffce2.png'}} style = {styles.logo}/>
-        <Text style = {styles.text}>Pontuação por Game</Text>
         <Text style = {styles.text}>Média</Text>
         <Text style = {styles.text}>{total} Pontos</Text>
         <Divider style = {styles.divider}/>

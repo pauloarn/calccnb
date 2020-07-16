@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import Main from './Main'
 import {
     widthPercentageToDP as wp,
@@ -113,6 +113,10 @@ export default class rolesFull extends Component{
     render(){
         return(
             <>
+                <View style = {{width: wp('100%'),height: hp('20%'), alignItems:'center', justifyContent:'center', backgroundColor: '#295b92'}}>
+                    <Image source = {{uri:'https://jogue.br.leagueoflegends.com/3fb69d63a4fc35119d5898b4503ffce2.png'}} style = {styles.logo}/>
+                    <Text style = {styles.text}>Pontuação por Game</Text>
+                </View>
                 <Roles/>
                 <FloatingAction
                     actions={this.actions}
@@ -122,9 +126,11 @@ export default class rolesFull extends Component{
                     color= 'rgba(0,0,0,0)'
                     dismissKeyboardOnPress = {true}
                     floatingIcon = {
-                        <Icon name='add-circle' style = {styles.icon}/>
+                            <Icon name='add-circle' style = {styles.icon}/>
                     }
-                    distanceToEdge = {45}
+                    buttonSize = {wp('14%')}
+                    elevation = {false}
+                    distanceToEdge = {wp('10%')}
                 />
             </>
         )

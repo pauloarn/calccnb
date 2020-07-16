@@ -72,9 +72,10 @@ export default StyleSheet.create({
         marginBottom:wp('3%'),
         justifyContent:'center',
         alignItems:'center',
-        height:hp('8%'),
+        height:wp('8%'),
         elevation:wp('1%'),
-        borderRadius:wp('2%'),
+        borderRadius:wp('1%'),
+        elevation:wp('1%'),
         flexDirection:'row'
     },
     cardText:{
@@ -85,11 +86,11 @@ export default StyleSheet.create({
         flex:1
     },
     winInd:{
-        width:wp('10%'),
-        height:wp('15%'),
+        width:wp('8%'),
+        height:wp('8%'),
         marginRight:wp('10%'),
-        borderTopLeftRadius:wp('2%'),
-        borderBottomLeftRadius:wp('2%'),
+        borderTopLeftRadius:wp('1%'),
+        borderBottomLeftRadius:wp('1%'),
         flex:0.3
     }
  })
